@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
-    Route::resource('recipes', RecipesController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('recipes', RecipesController::class);
     Route::resource('ingredients', IngredientsController::class);
     Route::resource('category', CategoryController::class);
 

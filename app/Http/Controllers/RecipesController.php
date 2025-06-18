@@ -26,6 +26,27 @@ class RecipesController extends Controller
         return view('dashboard', $data);
     }
 
+    public function show(string $id)
+    {
+                // idの値でメッセージを検索して取得
+        $recipe = Recipes::findOrFail($id);
+
+        // メッセージ詳細ビューでそれを表示
+        return view('recipes.show', [
+            'recipe' => $recipe,
+        ]);
+    }
+
+        public function create()
+    {
+        $recipe = new Recipes();
+
+        // メッセージ作成ビューを表示
+        return view('recipes.create', [
+            'recipe' => $recipe,
+        ]);
+    }
+
         public function store(Request $request)
     {
         // バリデーション

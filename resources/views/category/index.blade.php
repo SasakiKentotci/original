@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="prose ml-4">
-        <h2 class="text-lg">食材 一覧</h2>
+        <h2 class="text-lg">カテゴリー 一覧</h2>
     </div>
 
     @if (isset($category))
@@ -24,7 +24,7 @@
             </tbody>
         </table>
     @endif
-    <a class="btn btn-primary" href="{{ route('category.create') }}">新規食材を追加</a> 
+    <a class="btn btn-primary" href="{{ route('category.create') }}">新規カテゴリーを追加</a> 
 
 
 @endsection
