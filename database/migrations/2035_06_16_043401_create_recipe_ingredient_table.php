@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('ingredient_id');
             $table->timestamps();
+            $table->string('amount');
                  // 外部キー制約
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
-            $table->unique(['recipe_id', 'ingredient_id']);
         });
     }
 

@@ -5,7 +5,7 @@
                 <li class="flex items-start gap-x-2 mb-4">
                     <div>
                         {{-- 投稿内容 --}}
-                        <p class="mb-0">{!! nl2br(e($recipe->content)) !!}</p>
+                        <p class="mb-0">{!! nl2br(e($recipe->title)) !!}</p>
                     </div>
                     <div>
                     @if (Auth::id() == $recipe->user_id)

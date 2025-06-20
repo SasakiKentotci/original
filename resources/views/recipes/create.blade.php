@@ -22,9 +22,28 @@
     <div class="mb-6">
         <label class="block text-lg font-semibold mb-2">材料</label>
         <div id="ingredients-list">
-            <div class="flex mb-2">
-                <input type="text" name="ingredients[0][name]" class="w-2/3 border rounded p-2 mr-2" placeholder="材料名">
-                <input type="text" name="ingredients[0][amount]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
+            <div class="group form-ingredient">
+                <div class="flex mb-2">
+                    <div class="">
+                        <input type="hidden" name="ingredientIds[]" class="input-ingredient-id w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                        <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                    </div>
+                    <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
+                    <script>
+                        function setIngredient($button, ingredientId, ingredientName) {
+                            const $ingredient = $button.closest(".form-ingredient");
+                            const $ingredientId = $ingredient.querySelector(".input-ingredient-id");
+                            const $ingredientName = $ingredient.querySelector(".input-ingredient-name");
+                            $ingredientId.value = ingredientId;
+                            $ingredientName.value = ingredientName;
+                        }
+                    </script>
+                </div>
+                <div class="invisible group-focus-within:visible">
+                    @foreach($ingredients as $ingredient)
+                        <button type="button" onClick="setIngredient(this, '{{ $ingredient->id }}', '{{ $ingredient->ingredient }}')" class="">{{ $ingredient->ingredient }}</button>
+                    @endforeach
+                </div>
             </div>
         </div>
         <button type="button" onclick="addIngredient()" class="text-blue-600 mt-2 hover:underline">+ 材料を追加</button>
@@ -36,8 +55,8 @@
         <div id="steps-list">
             <div class="mb-4">
                 <label class="block mb-1 text-sm font-medium">手順 1</label>
-                <textarea name="steps[0][description]" class="w-full border rounded p-2 mb-2" rows="2" placeholder="手順を説明"></textarea>
-                <input type="file" name="steps[0][image]" class="w-full border rounded p-2">
+                <textarea name="content[]" class="w-full border rounded p-2 mb-2" rows="2" placeholder="手順を説明"></textarea>
+                <input type="file" name="content" class="w-full border rounded p-2">
             </div>
         </div>
         <button type="button" onclick="addStep()" class="text-blue-600 mt-2 hover:underline">+ 手順を追加</button>
@@ -45,7 +64,7 @@
 
     {{-- 提出ボタン --}}
     <div>
-        <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">
+        <button type="submit" class=" btn bg-blue-100 btn-outline text-blue-60 px-6 py-2 rounded hover:bg-blue-600">
             投稿する
         </button>
     </div>
@@ -57,10 +76,20 @@ let ingredientIndex = 1;
 function addIngredient() {
     const list = document.getElementById('ingredients-list');
     const div = document.createElement('div');
-    div.className = "flex mb-2";
+    div.className = "group form-ingredient";
     div.innerHTML = `
-        <input type="text" name="ingredients[${ingredientIndex}][name]" class="w-2/3 border rounded p-2 mr-2" placeholder="材料名">
-        <input type="text" name="ingredients[${ingredientIndex}][amount]" class="w-1/3 border rounded p-2" placeholder="量">
+        <div class="flex mb-2">
+            <div class="">
+                <input type="hidden" name="ingredientIds[]" class="input-ingredient-id w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+            </div>
+            <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
+        </div>
+        <div class="invisible group-focus-within:visible">
+            @foreach($ingredients as $ingredient)
+                <button type="button" onClick="setIngredient(this, '{{ $ingredient->id }}', '{{ $ingredient->ingredient }}')" class="">{{ $ingredient->ingredient }}</button>
+            @endforeach
+        </div>
     `;
     list.appendChild(div);
     ingredientIndex++;
@@ -73,7 +102,7 @@ function addStep() {
     div.className = "mb-4";
     div.innerHTML = `
         <label class="block mb-1 text-sm font-medium">手順 ${stepIndex + 1}</label>
-        <textarea name="steps[${stepIndex}][description]" class="w-full border rounded p-2 mb-2" rows="2" placeholder="手順を説明"></textarea>
+        <textarea name="content[]" class="w-full border rounded p-2 mb-2" rows="2" placeholder="手順を説明"></textarea>
         <input type="file" name="steps[${stepIndex}][image]" class="w-full border rounded p-2">
     `;
     list.appendChild(div);

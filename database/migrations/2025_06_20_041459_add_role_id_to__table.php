@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('recipes', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
-            // 外部キー制約
-            $table->foreign('category_id')->references('id')->on('categories');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role_id')->nullable();
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('recipes', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

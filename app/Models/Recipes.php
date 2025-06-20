@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recipes extends Model
 {
     use HasFactory;
-    protected $fillable = ['content'];
+    protected $fillable = ['content',"title"];
 
         public function user()
     {
@@ -22,7 +22,9 @@ class Recipes extends Model
 
     public function usings()
     {
-        return $this->belongsToMany(Ingredients::class, 'recipe_ingredient', 'recipe_id', 'ingredient_id')->withTimestamps();
+        return $this->belongsToMany(Ingredients::class, 'recipe_ingredient', 'recipe_id', 'ingredient_id')
+            ->withPivot("amount")
+            ->withTimestamps();
     }
 
         public function use(int $recipe_id)
