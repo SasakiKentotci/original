@@ -39,12 +39,19 @@ class RecipesController extends Controller
         // バリデーション
         $request->validate([
             'title' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|max:255',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images'); 
+        }
       
         // 認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $recipe = $request->user()->recipes()->create([
             "title"=>$request->title,
+            'image' =>$imagePath,
             'content' => json_encode($request->content),
         ]);
 
