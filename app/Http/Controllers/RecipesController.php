@@ -15,6 +15,7 @@ class RecipesController extends Controller
         $data = [
             'recipes' => $recipes,
             ];
+            
         
         // dashboardビューでそれらを表示
         return view('recipes.index', $data);
@@ -92,12 +93,22 @@ class RecipesController extends Controller
     
     public function search(Request $request)
     {
-        $query=Recipes::query();
-        if($keyword=$request->input("keyword")){
-            $query->where("title","like","%{keyword}%");
+           $keyword = $request->input('keyword');
 
-        }
-        $recipes=$query->latest()->take(6)->get();
-        return view("recipes_contents",$recipes);
+    $query = Recipes::query();
+
+    if ($keyword) {
+        $query->where(function($q) use ($keyword) {
+            $q->where('title', 'like', "%{$keyword}%")
+              ->orWhereHas('usings.ingredient', function($q2) use ($keyword) {
+                  $q2->where('name', 'like', "%{$keyword}%");
+              });
+        });
+    }
+
+    $recipes = $query->with('usings.ingredient')->latest()->get();
+
+    return view('recipes.index', compact('recipes'));
+       
     }
 }

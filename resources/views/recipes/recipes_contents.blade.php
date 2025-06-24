@@ -1,32 +1,35 @@
 <h2 class="text-2xl font-semibold mb-4">レシピ一覧</h2>
 
-<div class="bg-gray-100 py-6 flex justify-center">
-    <form method="GET" action="{{ route('recipes.index') }}" class="w-full max-w-md">
-        <input type="text" name="keyword" placeholder="レシピを検索" class="w-full border rounded px-4 py-2" />
+<div class="bg-gray-100 py-6 flex justify-center items-center">
+    <form action="{{ route('recipes.search') }}" method="GET" >
+        @csrf
+        <input type="text" name="keyword" placeholder="レシピを検索" class="flex-grow border rounded-l px-4 py-2 " />
+        <button type="submit" class="bg-blue-500  rounded-r px-4 py-2 hover:bg-blue-600 transition">検索</button>
     </form>
 </div>
 
 @if (Auth::check())
-<a href="{{ route('recipes.create') }}">
-    <h2>+レシピ作成</h2>
-</a>
+    <div class="flex justify-center mb-4">
+        <a href="{{ route('recipes.create') }}" class="bg-red-500  rounded-full px-4 py-2 flex items-center hover:bg-red-500 transition">
+            <span class="mr-2">+</span> レシピ作成
+        </a>
+    </div>
 @endif
-<div class="bg-gray-100 px-6 py-4">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    @foreach ($recipes as $recipe)
-        <a href="{{ route('recipes.show', $recipe->id) }}" class="bg-white rounded shadow hover:shadow-md transition overflow-hidden">
-            <img src="{{ asset("img/ramen.png") }}" alt="img" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <h3 class="text-lg font-bold">{{ $recipe->title }}</h3>
-                <ol>
+<div class="bg-gray-100 px-6 py-4 justify-center">
+    <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @foreach ($recipes as $recipe)
+            <a href="{{ route('recipes.show', $recipe->id) }}" class="bg-white rounded shadow hover:shadow-md transition overflow-hidden">
+                <img src="{{ asset('img/ma.jpg') }}" alt="img" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-lg font-bold">{{ $recipe->title }}</h3>
                     <ul class="list-disc list-inside mb-4">
-                        @foreach($recipe->usings as $ingredient) 
+                        @foreach ($recipe->usings as $ingredient)
                             <li>{{ $ingredient->ingredient }} ({{ $ingredient->pivot->amount }})</li>
                         @endforeach
                     </ul>
-                </ol>
-            </div>
-        </a>
+                </div>
+            </a>
+
     @if (Auth::check())
     <div>
     @if (Auth::user()->role_id==1 )

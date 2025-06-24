@@ -26,6 +26,7 @@ Route::get('/dashboard',[DashboardController::class, 'index'] )->middleware(['au
 
 
 Route::resource('recipes', RecipesController::class);
+Route::get('/recipes/search', [RecipesController::class, 'search'])->name('recipes.search');
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('ingredients', IngredientsController::class);
