@@ -89,4 +89,15 @@ class RecipesController extends Controller
         return back()
             ->with('Delete Failed');
     }
+    
+    public function search(Request $request)
+    {
+        $query=Recipes::query();
+        if($keyword=$request->input("keyword")){
+            $query->where("title","like","%{keyword}%");
+
+        }
+        $recipes=$query->latest()->take(6)->get();
+        return view("recipes_contents",$recipes);
+    }
 }

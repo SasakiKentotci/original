@@ -2,8 +2,12 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto p-4 bg-gray-100 rounded shadow">
+        <div class="mb-4">
+        <button onclick="history.back()" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
+            戻る
+        </button>
+    </div>
     <h2 class="font-semibold text-2xl font-bold mb-2">{{ $recipe->title }}</h2>
-
     {{-- レシピ画像 --}}
     <div class="mb-6">
         <img src="{{ asset( 'storage/images/m68AX8assISAk0HhwWCtsnKmQXPLgkPUdWs57r56.jpg') }}" alt="レシピ画像" class="w-full h-80 object-cover rounded">
