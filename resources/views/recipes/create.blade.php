@@ -26,7 +26,7 @@
                 <div class="flex mb-2">
                     <div class="">
                         <input type="hidden" name="ingredientIds[]" class="input-ingredient-id w-2/3 border rounded p-2 mr-2" placeholder="材料名">
-                        <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                        <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名" readonly>
                     </div>
                     <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
                     <script>
@@ -113,7 +113,7 @@ function addIngredient() {
         <div class="flex mb-2">
             <div class="">
                 <input type="hidden" name="ingredientIds[]" class="input-ingredient-id w-2/3 border rounded p-2 mr-2" placeholder="材料名">
-                <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名" readonly>
             </div>
             <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
             <button type="button" onclick="removeIngredient(this)" class="text-red-500 ml-2">削除</button>
