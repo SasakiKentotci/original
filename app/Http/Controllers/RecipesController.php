@@ -55,7 +55,7 @@ class RecipesController extends Controller
             'image' =>$imagePath,
             'content' => json_encode($request->content),
         ]);
-
+        
         foreach ($request->ingredientIds as $i => $ingredientId) {
             $recipe->usings()->attach($ingredientId, [ "amount" => $request->ingredientAmounts[$i] ]);
         }
@@ -68,7 +68,7 @@ class RecipesController extends Controller
     {
         // idの値でメッセージを検索して取得
         $recipe = Recipes::findOrFail($id);
-
+       
         // メッセージ詳細ビューでそれを表示
         return view('recipes.show', [
             'recipe' => $recipe,

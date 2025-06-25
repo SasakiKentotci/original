@@ -4,7 +4,7 @@
     <form  action="{{ route('recipes.search') }}" method="POST" >
         @csrf
         <input type="text" name="keyword" placeholder="レシピを検索" class="flex-grow border rounded-l px-4 py-2 " />
-        <button type="submit" class="bg-blue-500  rounded-r px-4 py-2 hover:bg-blue-600 transition">検索</button>
+        <button type="submit" class="bg-blue-600  rounded-r px-4 py-2 hover:bg-blue-600 transition">検索</button>
     </form>
 </div>
 

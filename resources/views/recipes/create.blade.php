@@ -29,6 +29,15 @@
                         <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
                     </div>
                     <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
+                    <script>
+                        function setIngredient($button, ingredientId, ingredientName) {
+                            const $ingredient = $button.closest(".form-ingredient");
+                            const $ingredientId = $ingredient.querySelector(".input-ingredient-id");
+                            const $ingredientName = $ingredient.querySelector(".input-ingredient-name");
+                            $ingredientId.value = ingredientId;
+                            $ingredientName.value = ingredientName;
+                        }
+                    </script>
                     <button type="button" onclick="removeIngredient(this)" class="text-red-500 ml-2">削除</button>
                 </div>
                 <div class="invisible group-focus-within:visible">
@@ -94,6 +103,28 @@ function updateStepLabels() {
         const inputFile = step.querySelector('input[type="file"]');
         inputFile.name = `steps[${index}][image]`;
     });
+}
+
+function addIngredient() {
+    const ingredientsList = document.getElementById('ingredients-list');
+    const ingredientDiv = document.createElement('div');
+    ingredientDiv.className = "group form-ingredient";
+    ingredientDiv.innerHTML = `
+        <div class="flex mb-2">
+            <div class="">
+                <input type="hidden" name="ingredientIds[]" class="input-ingredient-id w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+                <input type="text" name="ingredientNames[]" class="input-ingredient-name w-2/3 border rounded p-2 mr-2" placeholder="材料名">
+            </div>
+            <input type="text" name="ingredientAmounts[]" class="w-1/3 border rounded p-2" placeholder="量（例：100g）">
+            <button type="button" onclick="removeIngredient(this)" class="text-red-500 ml-2">削除</button>
+        </div>
+        <div class="invisible group-focus-within:visible">
+            @foreach($ingredients as $ingredient)
+                <button type="button" onClick="setIngredient(this, '{{ $ingredient->id }}', '{{ $ingredient->ingredient }}')" class="">{{ $ingredient->ingredient }}</button>
+            @endforeach
+        </div>
+    `;
+    ingredientsList.appendChild(ingredientDiv);
 }
 
 // 材料を削除

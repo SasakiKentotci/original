@@ -13,6 +13,7 @@
         <img src="{{ asset( str_replace("public/",'storage/',$recipe->image)) }}" alt="レシピ画像" class="w-24 h-24 object-cover rounded">
         
     </div>
+  
 
     {{-- 下段：材料 + 作り方 --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -21,7 +22,7 @@
         <div class="md:col-span-1 bg-white p-4 rounded shadow">
             <h2 class="text-lg font-bold mb-2">材料</h2>
             <ul class="list-disc pl-5 space-y-1 text-sm">
-            @foreach($recipe->usings as $ingredient) 
+            @foreach($recipe->usings as $ingredient)
                 <li>{{ $ingredient->ingredient }} ({{ $ingredient->pivot->amount }})</li>
             @endforeach
             </ul>
