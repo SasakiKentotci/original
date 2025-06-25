@@ -11,6 +11,6 @@ class Ingredients extends Model
 
     public function used()
     {
-        return $this->belongsToMany(Ingredients::class, 'recipe_ingredient', 'ingredient_id', 'recipe_id')->withTimestamps();
+        return $this->belongsToMany(Recipes::class, 'recipe_ingredient', 'ingredient_id', 'recipe_id')->withTimestamps();
     }
 }

@@ -101,7 +101,7 @@ class RecipesController extends Controller
         });
     
 
-    $recipes = $query->with('usings.ingredient')->latest()->get();
+    $recipes = $query->with('usings')->latest()->get();
 
     return view('recipes.index', compact('recipes'));  
     }
