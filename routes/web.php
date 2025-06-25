@@ -20,13 +20,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/',[DashboardController::class, 'index'] )->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/',[DashboardController::class, 'index'] )->name('dashboard');
 
-Route::get('/dashboard',[DashboardController::class, 'index'] )->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class, 'index'] )->name('dashboard');
 
 
 Route::resource('recipes', RecipesController::class);
-Route::get('/recipes/search', [RecipesController::class, 'search'])->name('recipes.search');
+Route::post('/recipes/search', [RecipesController::class, 'search'])->name('recipes.search');
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('ingredients', IngredientsController::class);

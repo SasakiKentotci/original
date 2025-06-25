@@ -10,8 +10,8 @@
     <h2 class="font-semibold text-2xl font-bold mb-2">{{ $recipe->title }}</h2>
     {{-- レシピ画像 --}}
     <div class="mb-6">
-        <img src="{{ asset( 'storage/images/m68AX8assISAk0HhwWCtsnKmQXPLgkPUdWs57r56.jpg') }}" alt="レシピ画像" class="w-full h-80 object-cover rounded">
-        <p>{{ $recipe->image}}</p>
+        <img src="{{ asset( str_replace("public/",'storage/',$recipe->image)) }}" alt="レシピ画像" class="w-24 h-24 object-cover rounded">
+        
     </div>
 
     {{-- 下段：材料 + 作り方 --}}
