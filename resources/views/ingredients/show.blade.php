@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="prose ml-4">
-        <h2>id = {{ $ingredients->id }} のメッセージ詳細ページ</h2>
+        <h2>id = {{ $ingredients->id }} の詳細ページ</h2>
     </div>
 
     <table class="table w-full my-4">

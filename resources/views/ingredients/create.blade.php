@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="prose ml-4">
-        <h2 class="text-lg">メッセージ新規作成ページ</h2>
+        <h2 class="text-lg">食材追加ページ</h2>
     </div>
 
     <div class="flex justify-center">
